@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -49,30 +47,30 @@ namespace Test.Controllers.Website_QuanTri
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaSP,TenSP,DongSP,MaHangSP,ThongTinChiTietSP,TrangThaiSP,SL,DonGiaGoc,DonGiaKM")] SanPham sanPham, HttpPostedFileBase image)
-        
+
+        {
+            if (image != null && image.ContentLength > 0)
             {
-                if (image != null && image.ContentLength > 0)
-                {
-                    sanPham.HinhAnhSP = new byte[image.ContentLength]; // image stored in binary formate
-                    image.InputStream.Read(sanPham.HinhAnhSP, 0, image.ContentLength);
-                    string fileName = System.IO.Path.GetFileName(image.FileName);
-                    string urlImage = Server.MapPath("~/Image/" + fileName);
-                    image.SaveAs(urlImage);
+                sanPham.HinhAnhSP = new byte[image.ContentLength]; // image stored in binary formate
+                image.InputStream.Read(sanPham.HinhAnhSP, 0, image.ContentLength);
+                string fileName = System.IO.Path.GetFileName(image.FileName);
+                string urlImage = Server.MapPath("~/Image/" + fileName);
+                image.SaveAs(urlImage);
 
-                   sanPham.UrlImage = "Image/" + fileName;
-                }
-
-                if (ModelState.IsValid)
-                {
-                    db.SanPhams.Add(sanPham);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                ViewBag.MaHangSP = new SelectList(db.HangSPs, "MaHang", "TenHang", sanPham.MaHangSP);
-                return View(sanPham);
+                sanPham.UrlImage = "Image/" + fileName;
             }
-           
+
+            if (ModelState.IsValid)
+            {
+                db.SanPhams.Add(sanPham);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.MaHangSP = new SelectList(db.HangSPs, "MaHang", "TenHang", sanPham.MaHangSP);
+            return View(sanPham);
+        }
+
 
         // GET: SanPhams/Edit/5
         public ActionResult Edit(int? id)
@@ -155,7 +153,7 @@ namespace Test.Controllers.Website_QuanTri
             base.Dispose(disposing);
         }
 
-    
+
 
         public ActionResult Index1()
         {

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Test.Models;
 using System.Web.Security;
+using Test.Models;
 
 namespace Test.Controllers.Website_BanHang
 {

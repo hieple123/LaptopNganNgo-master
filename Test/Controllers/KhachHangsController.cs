@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Test.Models;
 
@@ -137,7 +133,7 @@ namespace Test.Controllers.Website_QuanTri
             return View(khachHang);
         }
 
-        
+
 
         // GET: KhachHangs/Delete/5
         public ActionResult Delete(int? id)
